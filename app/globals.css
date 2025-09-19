@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --rounded: 24px;
+}
+
+body {
+    @apply text-omp-navy;
+}
+
+.btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-omp-teal px-6 py-3 font-semibold text-white hover:bg-omp-tealDark transition;
+}
+
+.card {
+    @apply bg-white rounded-[var(--rounded)] shadow-soft border border-gray-100;
+}
+
+.badge-dot {
+    @apply inline-flex items-center gap-2 rounded-full bg-omp-mint px-4 py-2 text-omp-teal text-sm;
+}
+
+.grid-bg {
+    background-image: theme('backgroundImage.grid-omp');
+    background-size: theme('backgroundSize.grid-16');
+}
+
+@layer components {
+
+    .hero-swiper .swiper {
+        overflow: hidden;
+    }
+
+    .hero-swiper .swiper-slide {
+        height: auto;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .hero-swiper .swiper-slide.swiper-slide-active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .hero-swiper .swiper-pagination {
+        position: static;
+        margin-top: 18px;
+    }
+
+    .hero-swiper .swiper-pagination-bullet {
+        @apply bg-teal-700/20 opacity-100 rounded-full mx-1;
+        width: 10px;
+        height: 10px;
+    }
+
+    .hero-swiper .swiper-pagination-bullet-active {
+        @apply bg-teal-600;
+        width: 34px;
+        height: 10px;
+        border-radius: 9999px;
+    }
+
+    .pro-swiper {
+        padding: 0 8px;
+    }
+
+    .pro-swiper-nav {
+        position: absolute;
+        top: 50%;
+        z-index: 20;
+        transform: translateY(-50%);
+        height: 44px;
+        width: 44px;
+        border-radius: 9999px;
+        background: white;
+        box-shadow: 0 10px 24px rgba(15, 34, 55, 0.18), 0 2px 6px rgba(15, 34, 55, 0.12);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .pro-swiper-nav:hover {
+        transform: translateY(-50%) scale(1.04);
+    }
+
+    .pro-swiper-prev {
+        left: -6px;
+    }
+
+    .pro-swiper-next {
+        right: -6px;
+    }
+
+    .pro-swiper-prev::before,
+    .pro-swiper-next::before {
+        content: '';
+        display: block;
+        margin: 0 auto;
+        width: 16px;
+        height: 16px;
+        background: #0f2237;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+
+    .pro-swiper-next::before {
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+
+    .dyn-swiper .swiper-pagination {
+        position: static;
+        /* puts bullets after slides */
+        margin-top: .5rem;
+        /* space under cards */
+        margin-bottom: 0;
+        /* no extra space */
+    }
+
+    .dyn-swiper .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: var(--bullet-color, rgba(15, 34, 55, .25));
+        opacity: 1;
+        margin: 0 4px;
+    }
+
+    .dyn-swiper .swiper-pagination-bullet-active {
+        background: var(--bullet-active, #16A394);
+    }
+}
+
+@layer utilities {
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in .4s ease-out both;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-10px)
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
