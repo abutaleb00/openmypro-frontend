@@ -41,8 +41,8 @@ export interface DynamicFeatureCarouselProps {
   cta?: {
     text: string
     href: string
-    from?: string
-    to?: string
+    from?: 'teal-600' | 'blue-600' | 'emerald-600' | 'cyan-600'
+    to?: 'teal-600' | 'blue-600' | 'emerald-600' | 'cyan-600'
     className?: string
   }
 }
@@ -110,9 +110,6 @@ export default function DynamicFeatureCarousel({
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
 
-  const ctaFrom = cta?.from ?? 'teal-600'
-  const ctaTo = cta?.to ?? 'blue-600'
-
   return (
     <div
       id={id}
@@ -126,7 +123,8 @@ export default function DynamicFeatureCarousel({
     >
       <div className="max-w-7xl mx-auto">
         <section className="py-12">
-          <div className="text-center mb-10">
+          {/* Header */}
+          <div className="text-center mb-6 sm:mb-10">
             {sectionIcon && <div className="inline-flex items-center justify-center mb-4">{sectionIcon}</div>}
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{heading}</h2>
             {(subheading || highlight) && (
@@ -136,18 +134,18 @@ export default function DynamicFeatureCarousel({
               </p>
             )}
           </div>
+
+          {/* Announcement */}
           {announcement && (
             <div className="relative mb-10">
               <div
-                className={`bg-gradient-to-r ${announcement.gradientClass ?? 'from-teal-600 to-blue-600'
-                  } rounded-2xl p-6 text-white`}
+                className={`bg-gradient-to-r ${announcement.gradientClass ?? 'from-teal-600 to-blue-600'}
+                  rounded-2xl p-6 text-white`}
               >
                 <div className="text-center">
                   <div className="inline-flex items-center gap-3 mb-4 px-6 py-3 bg-white/20 rounded-full">
                     <Sparkles className="w-6 h-6 text-white" />
-                    <span className="text-lg font-bold text-white tracking-wider">
-                      {announcement.badge}
-                    </span>
+                    <span className="text-lg font-bold text-white tracking-wider">{announcement.badge}</span>
                     <Sparkles className="w-6 h-6 text-white" />
                   </div>
 
@@ -156,9 +154,7 @@ export default function DynamicFeatureCarousel({
                   </h3>
 
                   {announcement.body && (
-                    <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">
-                      {announcement.body}
-                    </p>
+                    <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">{announcement.body}</p>
                   )}
                 </div>
               </div>
@@ -179,7 +175,9 @@ export default function DynamicFeatureCarousel({
             </div>
           )}
 
-          <div className="relative mb-8">
+          {/* Slider */}
+          <div className="relative mb-14 sm:mb-10 pb-2">
+            {/* nav buttons */}
             <button
               ref={prevRef}
               className="hidden sm:flex absolute left-[-14px] z-20 w-[42px] p-2
@@ -188,9 +186,19 @@ export default function DynamicFeatureCarousel({
                          [top:calc(50%-12px)]"
               aria-label="Prev"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
             </button>
 
             <button
@@ -201,9 +209,19 @@ export default function DynamicFeatureCarousel({
                          [top:calc(50%-12px)]"
               aria-label="Next"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
             </button>
 
             <Swiper
@@ -225,7 +243,7 @@ export default function DynamicFeatureCarousel({
                 1280: { slidesPerView: 4 },
                 1536: { slidesPerView: 4 },
               }}
-              className="dyn-swiper"
+              className="dyn-swiper overflow-visible"
             >
               {items.map((it) => (
                 <SwiperSlide key={it.id}>
@@ -235,14 +253,18 @@ export default function DynamicFeatureCarousel({
             </Swiper>
           </div>
 
-          {/* CTA */}
           {cta && (
-            <div className="text-center">
+            <div className="pt-2 sm:pt-0 text-center">
               <a
                 href={cta.href}
-                className={`bg-gradient-to-r from-${ctaFrom} to-${ctaTo} text-white px-8 py-4 rounded-xl font-semibold
-                            hover:from-${ctaFrom.replace('600', '700')} hover:to-${ctaTo.replace('600', '700')}
-                            transition-all duration-300 hover:scale-105 shadow-lg ${cta.className ?? ''}`}
+                className={[
+                  'inline-flex w-full sm:w-auto justify-center items-center',
+                  'rounded-xl font-semibold text-white px-6 py-3 text-base',
+                  'bg-gradient-to-r from-teal-600 to-blue-600',
+                  'hover:brightness-110 active:scale-[0.99] transition',
+                  'shadow-lg select-none',
+                  cta.className ?? '',
+                ].join(' ')}
               >
                 {cta.text}
               </a>
@@ -250,6 +272,20 @@ export default function DynamicFeatureCarousel({
           )}
         </section>
       </div>
+      <style jsx global>{`
+        .dyn-swiper .swiper-pagination {
+          position: static !important;
+          margin-top: 12px;
+          pointer-events: none;
+        }
+        .dyn-swiper .swiper-pagination-bullet {
+          background: var(--bullet-color);
+          opacity: 1;
+        }
+        .dyn-swiper .swiper-pagination-bullet-active {
+          background: var(--bullet-active);
+        }
+      `}</style>
     </div>
   )
 }

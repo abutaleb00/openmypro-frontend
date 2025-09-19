@@ -150,6 +150,17 @@ export const availableData = [
         ratingCount: 1,
         imageUrl: 'images/services/service-5.png',
     },
+    {
+        id: 5,
+        href: '/doctor/alyssa',
+        fullName: 'Santiago Castelazo',
+        specialty: 'obstetrics/gynecology',
+        city: 'JESÚS DEL MONTE',
+        price: '$0.00/visit*',
+        rating: 0.0,
+        ratingCount: 0,
+        imageUrl: 'images/services/service-9.png',
+    },
 ]
 export const alternativeData = [
     {
